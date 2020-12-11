@@ -140,7 +140,7 @@ namespace ShoppingOnline.Controllers
 
                 //Send Mail
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("Test project", "17k1.web2.demo@gmail.com"));
+                message.From.Add(new MailboxAddress("Test project", "aps.netcore.dev@gmail.com"));
                 message.To.Add(new MailboxAddress("ASP.NET Shopping", Email));
                 message.Subject = "Test send mail";
 
@@ -157,7 +157,7 @@ namespace ShoppingOnline.Controllers
                 using (var client = new SmtpClient())
                 {
                     client.Connect("smtp.gmail.com", 587, false);
-                    client.Authenticate("17k1.web2.demo@gmail.com", "abcXYZ123~");
+                    client.Authenticate("aps.netcore.dev@gmail.com", "Songdu1999#");
                     client.Send(message);
                     client.Disconnect(true);
                 }
