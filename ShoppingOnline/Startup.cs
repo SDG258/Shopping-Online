@@ -26,6 +26,13 @@ namespace ShoppingOnline
         {
             services.AddDbContext<ShoppingContext>();
             services.AddControllersWithViews();
+
+            //Thêm cookie
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +54,9 @@ namespace ShoppingOnline
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
+
 
             app.UseEndpoints(endpoints =>
             {

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MimeKit;
+using Newtonsoft.Json;
 using ShoppingOnline.Models;
 
 namespace ShoppingOnline.Controllers
@@ -167,7 +169,7 @@ namespace ShoppingOnline.Controllers
         }
 
         [HttpGet("{id}/{code}")]
-        public async Task<IActionResult> GetQueryAsync(int id, string code)
+        public async Task<IActionResult> GetQueryAsync(int id,string code)
         {
             var user = await _context.Users.FindAsync(id);
             if (code == user.Code)
@@ -175,23 +177,42 @@ namespace ShoppingOnline.Controllers
                 user.Code = null;
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
-                return Redirect("~/Users/ChangPassword/" + id);
-            }
-            return View(user);
-        }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> ChagePassword(int id, string Password, string ConfirmPassword)
+                //Save Session
+                UserSession userSession = new UserSession()
+                {
+                    ID = id,
+                    Email = user.Email,
+                };
+                HttpContext.Session.SetString("User", JsonConvert.SerializeObject(userSession));
+
+                return Redirect("~/Users/ChangePassword");
+            }
+            return Redirect("~/");
+        }
+        public IActionResult ChangePassword()
         {
-            var user = await _context.Users.FindAsync(id);
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(string Password, string ConfirmPassword)
+        {
+            var User = HttpContext.Session.GetString("User");
+            var userSession = JsonConvert.DeserializeObject<UserSession>(User);
+            var user = await _context.Users.FindAsync(userSession.ID);
             if(user!= null)
             {
                 if( Password == ConfirmPassword)
                 {
+                    string passwordHash = BCrypt.Net.BCrypt.HashPassword(Password);
 
+                    user.Password = passwordHash;
+
+                    _context.Users.Update(user);
+                    await _context.SaveChangesAsync();
                 }
             }
-            return View(user);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Users
