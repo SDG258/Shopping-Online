@@ -57,7 +57,6 @@ namespace ShoppingOnline
 
             app.UseSession();
 
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

@@ -51,7 +51,11 @@ namespace ShoppingOnline.Controllers
             else if (user != null)
             {
                 bool verified = BCrypt.Net.BCrypt.Verify(Password, user.Password);
-                if (verified)
+                if (verified && user.Permission == 1)
+                {
+                    return Redirect("~/Admin/");
+                }
+                else if(verified)
                 {
                     return Redirect("~/");
                 }
@@ -172,21 +176,24 @@ namespace ShoppingOnline.Controllers
         public async Task<IActionResult> GetQueryAsync(int id,string code)
         {
             var user = await _context.Users.FindAsync(id);
-            if (code == user.Code)
+            if(user != null)
             {
-                user.Code = null;
-                _context.Users.Update(user);
-                await _context.SaveChangesAsync();
-
-                //Save Session
-                UserSession userSession = new UserSession()
+                if (code == user.Code)
                 {
-                    ID = id,
-                    Email = user.Email,
-                };
-                HttpContext.Session.SetString("User", JsonConvert.SerializeObject(userSession));
+                    user.Code = null;
+                    _context.Users.Update(user);
+                    await _context.SaveChangesAsync();
 
-                return Redirect("~/Users/ChangePassword");
+                    //Save Session
+                    UserSession userSession = new UserSession()
+                    {
+                        ID = id,
+                        Email = user.Email,
+                    };
+                    HttpContext.Session.SetString("User", JsonConvert.SerializeObject(userSession));
+
+                    return Redirect("~/Users/ChangePassword");
+                }
             }
             return Redirect("~/");
         }
