@@ -43,9 +43,11 @@ namespace ShoppingOnline.Controllers
         }
 
         // GET: Admin/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Customers()
         {
-            return View();
+            var usersContext = _context.Users.OrderBy(x => x.UserId);
+
+            return View(await usersContext.ToListAsync());
         }
 
         // POST: Admin/Create

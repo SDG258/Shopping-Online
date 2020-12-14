@@ -76,6 +76,7 @@ namespace ShoppingOnline.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(string FristName, string LastName, string Email, string Phone, string Password, string ConfirmPassword)
         {
+            var userEmail = _context.Users.SingleOrDefault(x => x.Email == Email);
             if (FristName == null)
             {
                 ModelState.AddModelError("FristName", "Vui lòng điền họ");
@@ -89,6 +90,10 @@ namespace ShoppingOnline.Controllers
             {
                 ModelState.AddModelError("Email", "Vui lòng điền Mail");
 
+            }
+            else if(userEmail != null)
+            {
+                ModelState.AddModelError("Email", "Tài khoản đã tồn tại vui lòng đăng nhập");
             }
             else if (Phone == null)
             {
@@ -109,6 +114,7 @@ namespace ShoppingOnline.Controllers
                 user.LastName = LastName;
                 user.Email = Email;
                 user.Phone = Phone;
+                user.Permission = 0;
 
                 string passwordHash = BCrypt.Net.BCrypt.HashPassword(Password);
 
