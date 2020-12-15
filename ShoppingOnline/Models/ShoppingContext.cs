@@ -102,13 +102,6 @@ namespace ShoppingOnline.Models
                 entity.Property(e => e.ManufacturerId).HasColumnName("ManufacturerID");
 
                 entity.Property(e => e.ManufacturerName).HasMaxLength(250);
-
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.Manufacturers)
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK_Manufacturer_Product");
             });
 
             modelBuilder.Entity<Order>(entity =>

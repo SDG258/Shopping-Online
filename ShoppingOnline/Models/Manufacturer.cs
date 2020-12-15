@@ -9,8 +9,5 @@ namespace ShoppingOnline.Models
     {
         public int ManufacturerId { get; set; }
         public string ManufacturerName { get; set; }
-        public int? ProductId { get; set; }
-
-        public virtual Product Product { get; set; }
     }
 }

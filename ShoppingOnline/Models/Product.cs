@@ -7,11 +7,6 @@ namespace ShoppingOnline.Models
 {
     public partial class Product
     {
-        public Product()
-        {
-            Manufacturers = new HashSet<Manufacturer>();
-        }
-
         public int ProductId { get; set; }
         public string NameProduct { get; set; }
         public int? PictureId { get; set; }
@@ -22,6 +17,5 @@ namespace ShoppingOnline.Models
 
         public virtual Discount Discount { get; set; }
         public virtual Picture Picture { get; set; }
-        public virtual ICollection<Manufacturer> Manufacturers { get; set; }
     }
 }
