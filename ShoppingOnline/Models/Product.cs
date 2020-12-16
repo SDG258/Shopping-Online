@@ -7,6 +7,11 @@ namespace ShoppingOnline.Models
 {
     public partial class Product
     {
+        public Product()
+        {
+            Rams = new HashSet<Ram>();
+        }
+
         public int ProductId { get; set; }
         public string NameProduct { get; set; }
         public int? PictureId { get; set; }
@@ -16,5 +21,6 @@ namespace ShoppingOnline.Models
         public int? ManufacturerId { get; set; }
         public virtual Discount Discount { get; set; }
         public virtual Picture Picture { get; set; }
+        public virtual ICollection<Ram> Rams { get; set; }
     }
 }

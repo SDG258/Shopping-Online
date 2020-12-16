@@ -54,9 +54,17 @@ namespace ShoppingOnline.Controllers
         [HttpPost]
         public async Task<IActionResult> AddManufacturers(string ManufacturerName)
         {
+            var CheckManufacturerName = _context.Manufacturers.SingleOrDefault(x => x.ManufacturerName == ManufacturerName);
             if (ManufacturerName == null)
             {
-                ModelState.AddModelError("ManufacturerName", "Vui lòng điền họ");
+                ModelState.AddModelError("ManufacturerName", "Vui lòng điền hãng sản xuất");
+                return View();
+            }
+            else if(CheckManufacturerName != null)
+            {
+                ModelState.AddModelError("ManufacturerName", "Hãng sản xuất đã tồn tại");
+                return View();
+
             }
             else
             {
@@ -67,7 +75,7 @@ namespace ShoppingOnline.Controllers
                 _context.Manufacturers.Add(manufacturer);
                 await _context.SaveChangesAsync();
             }
-            return Redirect("~/Manufacturers/ListManufacturers");
+            return Redirect("~/Admin/ListManufacturers");
         }
         //Hiển thi danh sách mã giảm giá
         public async Task<IActionResult> ListDiscount()
@@ -79,7 +87,7 @@ namespace ShoppingOnline.Controllers
         //Hiển thị form thêm sản phẩm
         public async Task<IActionResult> AddProduct()
         {
-            ManufacturerAndDiscountViewModel manufacturerAndDiscountViewModel = new ManufacturerAndDiscountViewModel();
+            InfoProduct manufacturerAndDiscountViewModel = new InfoProduct();
 
             var ManufacturersContext = _context.Manufacturers.OrderBy(m => m.ManufacturerId);
             var DiscountsContext = _context.Discounts.OrderBy(m => m.DiscountId);
@@ -93,21 +101,19 @@ namespace ShoppingOnline.Controllers
 
         //Thêm sản phẩm
         [HttpPost]
-        public async Task<IActionResult> AddProduct(string ManufacturerName)
+        public async Task<IActionResult> AddProduct(Product product, Rom rom, Ram ram)
         {
-            if (ManufacturerName == null)
+            if (product.NameProduct == null)
             {
-                ModelState.AddModelError("ManufacturerName", "Vui lòng điền họ");
+                ModelState.AddModelError("NameProduct", "Vui lòng điền trường này");
             }
-            else
-            {
-                Manufacturer manufacturer = new Manufacturer();
 
-                manufacturer.ManufacturerName = ManufacturerName;
+            Product productNew = new Product();
 
-                _context.Manufacturers.Add(manufacturer);
-                await _context.SaveChangesAsync();
-            }
+            productNew.NameProduct = product.NameProduct;
+
+            _context.Products.Add(productNew);
+            await _context.SaveChangesAsync();
             return Redirect("~/Manufacturers/ListManufacturers");
         }
     }

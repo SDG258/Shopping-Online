@@ -24,6 +24,8 @@ namespace ShoppingOnline.Models
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Picture> Pictures { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Ram> Rams { get; set; }
+        public virtual DbSet<Rom> Roms { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<WareHouse> WareHouses { get; set; }
 
@@ -159,6 +161,32 @@ namespace ShoppingOnline.Models
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.PictureId)
                     .HasConstraintName("FK_Product_Picture");
+            });
+
+            modelBuilder.Entity<Ram>(entity =>
+            {
+                entity.ToTable("Ram");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.Rams)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_Ram_Product");
+            });
+
+            modelBuilder.Entity<Rom>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("Rom");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany()
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_Rom_Product");
             });
 
             modelBuilder.Entity<User>(entity =>

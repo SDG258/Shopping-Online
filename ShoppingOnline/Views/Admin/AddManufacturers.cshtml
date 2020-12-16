@@ -1,4 +1,6 @@
-﻿@{
+﻿@using ShoppingOnline.Models;
+@model Manufacturer
+@{
     ViewData["Title"] = "Thêm hãng sản xuất";
     Layout = "~/Views/Shared/AdminHeader-Footer.cshtml";
 }
@@ -7,10 +9,11 @@
         <div class="right__title">Bảng điều khiển</div>
         <p class="right__desc">Chèn thể loại</p>
         <div class="right__formWrapper">
-            <form action="~/Manufacturers/Add" method="post">
+            <form action="~/Admin/AddManufacturers" method="post">
                 <div class="right__inputWrapper">
                     <label for="title">Tiêu đề</label>
                     <input type="text" placeholder="Tên hãng" name="ManufacturerName">
+                    <span asp-validation-for="ManufacturerName" style="color:red;"></span>
                 </div>
                 <button class="btn" type="submit">Thêm</button>
             </form>

@@ -1,5 +1,5 @@
 ﻿@using ShoppingOnline.Models;
-@model ManufacturerAndDiscountViewModel
+@model InfoProduct
 
 @{
     ViewData["Title"] = "Thêm sản phẩm";
@@ -29,19 +29,19 @@
                 </div>
                 <div class="right__inputWrapper">
                     <label for="p_category">Cấu hình</label>
-                    <select name="Ram">
+                    <select name="Memory">
                         <option disabled selected>Ram</option>
-                        <option value="">4GB</option>
-                        <option value="">8GB</option>
-                        <option value="">8GB</option>
-                        <option value="">12GB</option>
+                        <option value="4">4GB</option>
+                        <option value="8">8GB</option>
+                        <option value="8">12GB</option>
+                        <option value="12">16GB</option>
                     </select>
-                    <select name="Rom">
+                    <select name="Space">
                         <option disabled selected>Rom</option>
-                        <option value="">32GB</option>
-                        <option value="">64GB</option>
-                        <option value="">128GB</option>
-                        <option value="">256GB</option>
+                        <option value="32">32GB</option>
+                        <option value="64">64GB</option>
+                        <option value="128">128GB</option>
+                        <option value="256">256GB</option>
                     </select>
                 </div>
                 <div class="right__inputWrapper">

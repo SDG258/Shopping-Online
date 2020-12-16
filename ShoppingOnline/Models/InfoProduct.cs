@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 
 namespace ShoppingOnline.Models
 {
-    public class ManufacturerAndDiscountViewModel
+    public class InfoProduct
     {
         public IEnumerable<Manufacturer> ManufacturerViewModel { get; set; }
         public IEnumerable<Discount> DiscountViewModel { get; set; }
+        public IEnumerable<Ram> RamViewModel { get; set; }
+        public IEnumerable<Rom> RomViewModel { get; set; }
     }
 }
