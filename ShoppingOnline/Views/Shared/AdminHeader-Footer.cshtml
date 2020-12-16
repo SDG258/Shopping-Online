@@ -1,8 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Thêm hãng sản xuất Page";
-    Layout = null;
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -45,10 +41,10 @@
                                 </div>
                             </li>
                             <li class="left__menuItem">
-                                <div class="left__title"><img src="~/assets/icon-book.svg" alt="">Thể Loại<img class="left__iconDown" src="~/assets/arrow-down.svg" alt=""></div>
+                                <div class="left__title"><img src="~/assets/icon-book.svg" alt="">Hãng sản xuất<img class="left__iconDown" src="~/assets/arrow-down.svg" alt=""></div>
                                 <div class="left__text">
-                                    <a class="left__link" href="insert_category.html">Chèn Thể Loại</a>
-                                    <a class="left__link" href="view_category.html">Xem Thể Loại</a>
+                                    <a class="left__link" href="~/Admin/AddManufacturers">Thêm Hãng</a>
+                                    <a class="left__link" href="~/Admin/ListManufacturers">Danh Sách Hãng</a>
                                 </div>
                             </li>
                             <li class="left__menuItem">
@@ -66,7 +62,7 @@
                                 </div>
                             </li>
                             <li class="left__menuItem">
-                                <a href="view_customers.html" class="left__title"><img src="~/assets/icon-users.svg" alt="">Khách Hàng</a>
+                                <a href="~/Admin/Customers" class="left__title"><img src="~/assets/icon-users.svg" alt="">Khách Hàng</a>
                             </li>
                             <li class="left__menuItem">
                                 <a href="view_orders.html" class="left__title"><img src="~/assets/icon-book.svg" alt="">Đơn Đặt Hàng</a>
@@ -87,25 +83,11 @@
                         </ul>
                     </div>
                 </div>
-                <div class="right">
-                    <div class="right__content">
-                        <div class="right__title">Bảng điều khiển</div>
-                        <p class="right__desc">Chèn thể loại</p>
-                        <div class="right__formWrapper">
-                            <form action="~/Manufacturers/Add" method="post">
-                                <div class="right__inputWrapper">
-                                    <label for="title">Tiêu đề</label>
-                                    <input type="text" placeholder="Tên hãng" name="ManufacturerName">
-                                </div>
-                                <button class="btn" type="submit">Thêm</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                @RenderBody()
             </div>
         </div>
     </div>
 
-    <script src="js/main.js"></script>
+    <script src="~/js/Admin-main.js"></script>
 </body>
 </html>

@@ -32,38 +32,33 @@ namespace ShoppingOnline.Controllers
             return View(await usersContext.ToListAsync());
         }
 
-        // GET: Admin/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> ListManufacturers()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.UserId == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return View(user);
+            var shoppingContext = _context.Manufacturers.OrderBy(m => m.ManufacturerId);
+            return View(await shoppingContext.ToListAsync());
+        }
+        public IActionResult AddManufacturers()
+        {
+            return View();
         }
 
-        // POST: Admin/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [HttpPost]
+        public async Task<IActionResult> AddManufacturers(string ManufacturerName)
         {
-            var user = await _context.Users.FindAsync(id);
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            if (ManufacturerName == null)
+            {
+                ModelState.AddModelError("ManufacturerName", "Vui lòng điền họ");
+            }
+            else
+            {
+                Manufacturer manufacturer = new Manufacturer();
 
-        private bool UserExists(int id)
-        {
-            return _context.Users.Any(e => e.UserId == id);
+                manufacturer.ManufacturerName = ManufacturerName;
+
+                _context.Manufacturers.Add(manufacturer);
+                await _context.SaveChangesAsync();
+            }
+            return Redirect("~/Manufacturers/ListManufacturers");
         }
     }
 }

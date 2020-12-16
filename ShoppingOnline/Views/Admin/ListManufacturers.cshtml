@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ShoppingOnline.Models.Manufacturer>
+
+@{
+    ViewData["Title"] = "Danh sách hãng sản xuất";
+    Layout = "~/Views/Shared/AdminHeader-Footer.cshtml";
+}
+
+<div class="right">
+    <div class="right__content">
+        <div class="right__title">Các hãng điện thoại</div>
+        <p class="right__desc">Xem danh sách các hãng</p>
+        <div class="right__table">
+            <div class="right__tableWrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên hãng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td data-label="STT">@Html.DisplayFor(modelItem => item.ManufacturerId)</td>
+                                <td data-label="Tên hãng">@Html.DisplayFor(modelItem => item.ManufacturerName)</td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
