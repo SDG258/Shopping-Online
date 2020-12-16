@@ -1,0 +1,85 @@
+﻿@using ShoppingOnline.Models;
+@model ManufacturerAndDiscountViewModel
+
+@{
+    ViewData["Title"] = "Thêm sản phẩm";
+    Layout = "~/Views/Shared/AdminHeader-Footer.cshtml";
+}
+<
+<div class="right">
+    <div class="right__content">
+        <div class="right__title">Bảng điều khiển</div>
+        <p class="right__desc">Chèn danh mục</p>
+        <div class="right__formWrapper">
+            <form action="" method="post" enctype="multipart/form-data">
+                <div class="right__inputWrapper">
+                    <label for="title">Tên sản phẩm</label>
+                    <input type="text" name="NameProduct" placeholder="Tên sản phẩm" />
+                </div>
+                <div class="right__inputWrapper">
+                    <label for="p_category">Hãng sản xuất</label>
+                    <select name="ManufacturerId">
+                        <option disabled selected>Chọn danh mục</option>
+                        @foreach (var item in Model.ManufacturerViewModel)
+                        {
+                            <option value="@Html.DisplayFor(modelItem => item.ManufacturerId)"> @Html.DisplayFor(modelItem => item.ManufacturerName)</option>
+
+                        }
+                    </select>
+                </div>
+                <div class="right__inputWrapper">
+                    <label for="p_category">Cấu hình</label>
+                    <select name="Ram">
+                        <option disabled selected>Ram</option>
+                        <option value="">4GB</option>
+                        <option value="">8GB</option>
+                        <option value="">8GB</option>
+                        <option value="">12GB</option>
+                    </select>
+                    <select name="Rom">
+                        <option disabled selected>Rom</option>
+                        <option value="">32GB</option>
+                        <option value="">64GB</option>
+                        <option value="">128GB</option>
+                        <option value="">256GB</option>
+                    </select>
+                </div>
+                <div class="right__inputWrapper">
+                    <label for="image">Hình ảnh 1</label>
+                    <input type="file" name="img1" />
+                </div>
+                <div class="right__inputWrapper">
+                    <label for="image">Hình ảnh 2</label>
+                    <input type="file" name="img2" />
+                </div>
+                <div class="right__inputWrapper">
+                    <label for="image">Hình ảnh 3</label>
+                    <input type="file" name="img3" />
+                </div>
+                <div class="right__inputWrapper">
+                    <label for="p_category">Áp dụng giảm giá</label>
+                    <select name="DiscountId">
+                        <option disabled selected>Chọn danh mục</option>
+                        @foreach (var item in Model.DiscountViewModel)
+                        {
+                            <option value="@Html.DisplayFor(modelItem => item.DiscountId)"> @Html.DisplayFor(modelItem => item.DiscountId)</option>
+                        }
+                    </select>
+                </div>
+                <div class="right__inputWrapper">
+                    <label for="title">Áp dụng giảm giá?</label>
+                    <input type="number" placeholder="Giá giảm sản phẩm" name="DiscountId" />
+                </div>
+                <div class="right__inputWrapper">
+                    <label for="desc">Mô tả</label>
+                    <textarea name="note"
+                              id=""
+                              cols="30"
+                              rows="10"
+                              placeholder="Mô tả"></textarea>
+                </div>
+                <button class="btn" type="submit">Chèn</button>
+            </form>
+        </div>
+    </div>
+</div>
