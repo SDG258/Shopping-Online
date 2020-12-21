@@ -22,7 +22,6 @@ namespace ShoppingOnline.Models
         public virtual DbSet<Discount> Discounts { get; set; }
         public virtual DbSet<Manufacturer> Manufacturers { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<Picture> Pictures { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Ram> Rams { get; set; }
         public virtual DbSet<Rom> Roms { get; set; }
@@ -126,18 +125,6 @@ namespace ShoppingOnline.Models
                     .HasConstraintName("FK_Order_User");
             });
 
-            modelBuilder.Entity<Picture>(entity =>
-            {
-                entity.ToTable("Picture");
-
-                entity.Property(e => e.PictureId).HasColumnName("PictureID");
-
-                entity.Property(e => e.Url)
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .HasColumnName("URL");
-            });
-
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("Product");
@@ -150,43 +137,46 @@ namespace ShoppingOnline.Models
 
                 entity.Property(e => e.NameProduct).HasMaxLength(250);
 
-                entity.Property(e => e.PictureId).HasColumnName("PictureID");
+                entity.Property(e => e.RamId).HasColumnName("RamID");
+
+                entity.Property(e => e.RomId).HasColumnName("RomID");
 
                 entity.HasOne(d => d.Discount)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.DiscountId)
                     .HasConstraintName("FK_Product_Discount");
 
-                entity.HasOne(d => d.Picture)
+                entity.HasOne(d => d.Manufacturer)
                     .WithMany(p => p.Products)
-                    .HasForeignKey(d => d.PictureId)
-                    .HasConstraintName("FK_Product_Picture");
+                    .HasForeignKey(d => d.ManufacturerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Product_Manufacturer");
+
+                entity.HasOne(d => d.Ram)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.RamId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Product_Ram");
+
+                entity.HasOne(d => d.Rom)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.RomId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Product_Rom");
             });
 
             modelBuilder.Entity<Ram>(entity =>
             {
                 entity.ToTable("Ram");
 
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.Rams)
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK_Ram_Product");
+                entity.Property(e => e.RamId).HasColumnName("RamID");
             });
 
             modelBuilder.Entity<Rom>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("Rom");
 
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany()
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK_Rom_Product");
+                entity.Property(e => e.RomId).HasColumnName("RomID");
             });
 
             modelBuilder.Entity<User>(entity =>

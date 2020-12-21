@@ -22,39 +22,34 @@
                         <option disabled selected>Chọn danh mục</option>
                         @foreach (var item in Model.ManufacturerViewModel)
                         {
-                            <option value="@Html.DisplayFor(modelItem => item.ManufacturerId)"> @Html.DisplayFor(modelItem => item.ManufacturerName)</option>
-
+                            <option value="@item.ManufacturerId"> @item.ManufacturerName</option>
                         }
                     </select>
                 </div>
                 <div class="right__inputWrapper">
                     <label for="p_category">Cấu hình</label>
-                    <select name="Memory">
-                        <option disabled selected>Ram</option>
-                        <option value="4">4GB</option>
-                        <option value="8">8GB</option>
-                        <option value="8">12GB</option>
-                        <option value="12">16GB</option>
+                    <select name="RamId">
+                        <option disabled selected>Chọn danh mục</option>
+                        @foreach (var item in Model.RamViewModel)
+                        {
+                            <option value="@item.RamId">@item.Memory GB</option>
+                        }
                     </select>
-                    <select name="Space">
-                        <option disabled selected>Rom</option>
-                        <option value="32">32GB</option>
-                        <option value="64">64GB</option>
-                        <option value="128">128GB</option>
-                        <option value="256">256GB</option>
+                    <select name="RomId">
+                        <option disabled selected>Chọn danh mục</option>
+                        @foreach (var item in Model.RomViewModel)
+                        {
+                            <option value="@item.RomId">@item.Space GB</option>
+                        }
                     </select>
                 </div>
                 <div class="right__inputWrapper">
                     <label for="image">Hình ảnh 1</label>
-                    <input type="file" name="img1" />
-                </div>
-                <div class="right__inputWrapper">
-                    <label for="image">Hình ảnh 2</label>
-                    <input type="file" name="img2" />
-                </div>
-                <div class="right__inputWrapper">
-                    <label for="image">Hình ảnh 3</label>
-                    <input type="file" name="img3" />
+                    <input type="file" multiple="multiple" name="ImgFile" class="form-control" id="selectedFile" style="display: none;" />
+
+                    <img src="" alt="Product image" id="imagePreview" style="width: 5rem; height: 5rem; display:none; margin-bottom:0.5rem" />
+
+                    <input type="button" value="Browse" onclick="document.getElementById('selectedFile').click();" style="display:block" />
                 </div>
                 <div class="right__inputWrapper">
                     <label for="p_category">Áp dụng giảm giá</label>
@@ -62,13 +57,13 @@
                         <option disabled selected>Chọn danh mục</option>
                         @foreach (var item in Model.DiscountViewModel)
                         {
-                            <option value="@Html.DisplayFor(modelItem => item.DiscountId)"> @Html.DisplayFor(modelItem => item.DiscountId)</option>
+                            <option value="@item.DiscountId"> @item.DiscountId</option>
                         }
                     </select>
                 </div>
                 <div class="right__inputWrapper">
-                    <label for="title">Áp dụng giảm giá?</label>
-                    <input type="number" placeholder="Giá giảm sản phẩm" name="DiscountId" />
+                    <label for="title">Giá sản phẩm</label>
+                    <input type="number" placeholder="100 000 000" name="Price" />
                 </div>
                 <div class="right__inputWrapper">
                     <label for="desc">Mô tả</label>
@@ -83,3 +78,10 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $("#selectedFile").change(function () {
+        $("#imagePreview").attr('src', URL.createObjectURL(this.files[0]));
+        $("#imagePreview").css('display', 'block')
+    }
+    )
+</script>

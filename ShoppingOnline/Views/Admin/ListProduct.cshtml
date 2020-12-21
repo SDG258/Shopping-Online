@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ShoppingOnline.Models.Product>
+
+
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+    Layout = "~/Views/Shared/AdminHeader-Footer.cshtml";
+}
+
+<div class="right">
+    <div class="right__content">
+        <div class="right__title">Danh sách sản phẩm</div>
+        <p class="right__desc">Xem danh sách các sản phẩm</p>
+        <div class="right__table">
+            <div class="right__tableWrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên hãng</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Ram</th>
+                            <th>Rom</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td data-label="STT">@item.ProductId</td>
+                            <td data-label="Tên hãng">@item.Manufacturer.ManufacturerName</td>
+                            <td data-label="Tên sản phẩm">@item.NameProduct</td>
+                            <td data-label="Tên hãng">@item.Price</td>
+                            <td data-label="Ram">@item.Ram.Memory</td>
+
+                            <td data-label="Rom">@item.Rom.Space</td>
+                            <td>
+                                <form action="~/Admin/DeleteProduct/@item.ProductId" method="post">
+                                    <button type="submit" class="btn btn-danger">Xoá</button>
+                            </form>
+                            </td>
+
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

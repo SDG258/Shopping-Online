@@ -7,10 +7,14 @@ namespace ShoppingOnline.Models
 {
     public partial class Rom
     {
-        public int? RomId { get; set; }
-        public int? Space { get; set; }
-        public int? ProductId { get; set; }
+        public Rom()
+        {
+            Products = new HashSet<Product>();
+        }
 
-        public virtual Product Product { get; set; }
+        public int RomId { get; set; }
+        public int? Space { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
