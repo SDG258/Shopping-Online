@@ -135,6 +135,8 @@ namespace ShoppingOnline.Controllers
             Product productNew = new Product();
             productNew.NameProduct = product.NameProduct;
             productNew.ManufacturerId = product.ManufacturerId;
+            productNew.RamId = product.RamId;
+            productNew.RomId = product.RomId;
             productNew.ImgUrl = uniqueFileName;
             if(product.Discount != null)
             {
@@ -146,7 +148,8 @@ namespace ShoppingOnline.Controllers
             _context.Products.Update(productNew);
             await _context.SaveChangesAsync();
 
-            return Redirect("~/Manufacturers/ListManufacturers");
+            return RedirectToAction(nameof(ListProduct));
+
         }
         //Hiển thị danh sách sản phẩm
         public async Task<IActionResult> ListProduct()
