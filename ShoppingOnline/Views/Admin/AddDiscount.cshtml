@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ShoppingOnline.Models.Product>
+
+@{
+    ViewData["Title"] = "Thêm mã giảm giá";
+    Layout = "~/Views/Shared/AdminHeader-Footer.cshtml";
+}
+<div class="right">
+    <div class="right__content">
+        <div class="right__title">Bảng điều khiển</div>
+        <p class="right__desc">Chèn mã giảm giá</p>
+        <div class="right__formWrapper">
+            <form action="~/Admin/AddDiscount" method="post">
+                <div class="right__inputWrapper">
+                    <label for="title">Mã giảm giá</label>
+                    <input name="DiscountCode" type="text" placeholder="VD: BD2212XU">
+                </div>
+                <div class="right__inputWrapper">
+                    <label for="price">Phần trăm giảm giá</label>
+                    <input name="DiscountPercent" type="number" placeholder="VD: 10%">
+                </div>
+                <div class="right__inputWrapper">
+                    <label for="limit">Giới hạn</label>
+                    <input name="Amount" type="number" placeholder="VD: 50">
+                </div>
+                <div class="right__inputWrapper">
+                    <label for="productId">Giảm phẩm áp dụng giảm giá</label>
+                    <select name="ProductId">
+                        <option disabled selected>Chọn sản phẩm</option>
+                        @foreach (var item in Model)
+                        {
+                            <option value="@item.ProductId">@item.NameProduct</option>
+                        }
+                    </select>
+                </div>
+                <div class="right__inputWrapper">
+                    <label for="code">Ngày bắt đầu</label>
+                    <input type="datetime-local" name="StartDate">
+                </div>
+                <div class="right__inputWrapper">
+                    <label for="code">Ngày kết thúc</label>
+                    <input type="datetime-local" name="EndDate">
+                </div>
+                <div class="right__inputWrapper">
+                    <label for="desc">Mô tả</label>
+                    <textarea name="note"
+                              id=""
+                              cols="30"
+                              rows="10"
+                              placeholder="Mô tả"></textarea>
+                </div>
+                <button class="btn" type="submit">Chèn</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function RandumCode() {
+        document.getElementById("DiscountCode").innerHTML = "Hello World";
+    }
+</script>

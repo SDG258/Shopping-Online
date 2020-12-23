@@ -89,6 +89,10 @@ namespace ShoppingOnline.Models
 
                 entity.Property(e => e.DiscountId).HasColumnName("DiscountID");
 
+                entity.Property(e => e.DiscountCode)
+                    .HasMaxLength(8)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.EndDate).HasColumnType("date");
 
                 entity.Property(e => e.Note).HasMaxLength(250);
@@ -150,7 +154,7 @@ namespace ShoppingOnline.Models
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.ManufacturerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Product_Manufacturer");
+                    .HasConstraintName("FK_Product_Manufacturer1");
 
                 entity.HasOne(d => d.Ram)
                     .WithMany(p => p.Products)

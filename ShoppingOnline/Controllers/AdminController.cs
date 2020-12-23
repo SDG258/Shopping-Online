@@ -82,12 +82,12 @@ namespace ShoppingOnline.Controllers
             }
             return Redirect("~/Admin/ListManufacturers");
         }
-        //Hiển thi danh sách mã giảm giá
-        public async Task<IActionResult> ListDiscount()
-        {
-            var shoppingContext = _context.Products.OrderBy(m => m.ManufacturerId);
-            return View(await shoppingContext.ToListAsync());
-        }
+        ////Hiển thi danh sách sản phẩm
+        //public async Task<IActionResult> ListProduct()
+        //{
+        //    var shoppingContext = _context.Products.OrderBy(m => m.ManufacturerId);
+        //    return View(await shoppingContext.ToListAsync());
+        //}
 
         //Hiển thị form thêm sản phẩm
         public async Task<IActionResult> AddProduct()
@@ -167,5 +167,35 @@ namespace ShoppingOnline.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(ListProduct));
         }
+
+        //Thêm mã giảm giá
+        public async Task<IActionResult> AddDiscount()
+        {
+            var shoppingContext = _context.Products.OrderBy(m => m.ProductId);
+            return View(await shoppingContext.ToListAsync());
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddDiscount(Discount discount, Product product)
+        {
+            Discount NewDiscount = new Discount();
+            NewDiscount.DiscountCode = discount.DiscountCode;
+            NewDiscount.DiscountPercent = discount.DiscountPercent;
+            NewDiscount.Amount = discount.Amount;
+            NewDiscount.StartDate = discount.StartDate;
+            NewDiscount.EndDate = discount.EndDate;
+            NewDiscount.Note = discount.Note;
+
+            _context.Discounts.Add(NewDiscount);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(ListDiscount));
+        }
+        //Danh sách mã giảm giá
+        public async Task<IActionResult> ListDiscount()
+        {
+            var shoppingContext = _context.Discounts.OrderBy(m => m.DiscountId);
+            return View(await shoppingContext.ToListAsync());
+        }
+
     }
 }
