@@ -159,14 +159,14 @@ namespace ShoppingOnline.Controllers
         }
 
         //Xoá sản phẩm
-        [HttpPost]
-        public async Task<IActionResult> DeleteProduct(int id)
-        {
-            var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(ListProduct));
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> DeleteProduct(int id)
+        //{
+        //    var product = await _context.Products.FindAsync(id);
+        //    _context.Products.Remove(product);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(ListProduct));
+        //}
 
         //Thêm mã giảm giá
         public async Task<IActionResult> AddDiscount()
@@ -194,6 +194,34 @@ namespace ShoppingOnline.Controllers
         public async Task<IActionResult> ListDiscount()
         {
             var shoppingContext = _context.Discounts.OrderBy(m => m.DiscountId);
+            return View(await shoppingContext.ToListAsync());
+        }
+
+        //Thêm kho hàng
+        public async Task<IActionResult> AddWareHouse()
+        {
+            var shoppingContext = _context.Products.OrderBy(m => m.ProductId);
+            return View(await shoppingContext.ToListAsync());
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddWareHouse(WareHouse wareHouse)
+        {
+            WareHouse NewwareHouse = new WareHouse();
+            NewwareHouse.ProductId = wareHouse.ProductId;
+            NewwareHouse.Cost = wareHouse.Cost;
+            NewwareHouse.QuantityImported = wareHouse.QuantityImported;
+            NewwareHouse.QuantitySold = 0;
+            NewwareHouse.Date = wareHouse.Date;
+
+            _context.WareHouses.Add(NewwareHouse);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(ListWareHouse));
+        }
+        //Danh sách kho hàng 
+        public async Task<IActionResult> ListWareHouse()
+        {
+            var shoppingContext = _context.WareHouses.OrderBy(m => m.ProductId).Include(p => p.Product);
             return View(await shoppingContext.ToListAsync());
         }
 

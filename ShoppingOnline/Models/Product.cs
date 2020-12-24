@@ -7,6 +7,11 @@ namespace ShoppingOnline.Models
 {
     public partial class Product
     {
+        public Product()
+        {
+            WareHouses = new HashSet<WareHouse>();
+        }
+
         public int ProductId { get; set; }
         public string NameProduct { get; set; }
         public string ImgUrl { get; set; }
@@ -21,5 +26,6 @@ namespace ShoppingOnline.Models
         public virtual Manufacturer Manufacturer { get; set; }
         public virtual Ram Ram { get; set; }
         public virtual Rom Rom { get; set; }
+        public virtual ICollection<WareHouse> WareHouses { get; set; }
     }
 }

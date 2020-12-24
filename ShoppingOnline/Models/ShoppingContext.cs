@@ -206,8 +206,6 @@ namespace ShoppingOnline.Models
 
             modelBuilder.Entity<WareHouse>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("WareHouse");
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
@@ -215,8 +213,9 @@ namespace ShoppingOnline.Models
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany()
+                    .WithMany(p => p.WareHouses)
                     .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_WareHouse_Product");
             });
 

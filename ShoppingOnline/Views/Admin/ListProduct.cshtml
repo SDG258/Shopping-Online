@@ -26,21 +26,24 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr>
-                            <td data-label="STT">@item.ProductId</td>
-                            <td data-label="Tên hãng">@item.Manufacturer.ManufacturerName</td>
-                            <td data-label="Tên sản phẩm">@item.NameProduct</td>
-                            <td data-label="Tên hãng">@string.Format("{0:#,##0}", item.Price) VNĐ</td>
-                            <td data-label="Ram">@item.Ram.Memory</td>
+                            <tr>
+                                <td data-label="STT">@item.ProductId</td>
+                                <td data-label="Tên hãng">@item.Manufacturer.ManufacturerName</td>
+                                <td data-label="Tên sản phẩm">@item.NameProduct</td>
+                                <td data-label="Giá">@string.Format("{0:#,##0}", item.Price) VNĐ</td>
+                                <td data-label="Ram">@item.Ram.Memory</td>
 
-                            <td data-label="Rom">@item.Rom.Space</td>
-                            <td>
-                                <form action="~/Admin/DeleteProduct/@item.ProductId" method="post">
-                                    <button type="submit" class="btn btn-danger">Xoá</button>
-                            </form>
-                            </td>
+                                <td data-label="Rom">@item.Rom.Space</td>
+                                <td>
+                                    <form action="~/Admin/EditStatus/@item.ProductId" method="post">
+                                        <select name="Status" onchange="this.form.submit()" >
+                                            <option value="0"> Còn hàng </option>
+                                            <option value="1"> Hết hàng </option>
+                                        </select>
+                                    </form>
+                                </td>
 
-                        </tr>
+                            </tr>
                         }
                     </tbody>
                 </table>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ShoppingOnline.Models.WareHouse>
+
+@{
+    ViewData["Title"] = "Danh sách hãng sản xuất";
+    Layout = "~/Views/Shared/AdminHeader-Footer.cshtml";
+}
+
+<div class="right">
+    <div class="right__content">
+        <div class="right__title">Các hãng điện thoại</div>
+        <p class="right__desc">Xem danh sách các hãng</p>
+        <div class="right__table">
+            <div class="right__tableWrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Số lượng nhập</th>
+                            <th>Số lượng đã bán</th>
+                            <th>Giá gốc</th>
+                            <th>Giá bán</th>
+                            <th>Ngày nhập</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td data-label="STT">@item.ProductId</td>
+                            <td data-label="Tên sản phẩm">@item.Product.NameProduct</td>
+                            <td data-label="Số lượng">@item.QuantityImported</td>
+                            <td data-label="Số lượng">@item.QuantitySold</td>
+                            <td data-label="Giá gốc">@string.Format("{0:#,##0}", item.Cost)</td>
+                            <td data-label="Giá bán">@string.Format("{0:#,##0}", item.Product.Price)</td>
+
+                            <td data-label="Ngày nhập">@item.Date</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

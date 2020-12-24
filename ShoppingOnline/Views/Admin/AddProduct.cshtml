@@ -9,7 +9,7 @@
 <div class="right">
     <div class="right__content">
         <div class="right__title">Bảng điều khiển</div>
-        <p class="right__desc">Chèn danh mục</p>
+        <p class="right__desc">Chèn sản phẩm</p>
         <div class="right__formWrapper">
             <form action="" method="post" enctype="multipart/form-data">
                 <div class="right__inputWrapper">
@@ -44,7 +44,7 @@
                     </select>
                 </div>
                 <div class="right__inputWrapper">
-                    <label for="image">Hình ảnh 1</label>
+                    <label for="image">Hình ảnh</label>
                     <input type="file" multiple="multiple" name="ImgFile" class="form-control" id="selectedFile" style="display: none;" />
 
                     <img src="" alt="Product image" id="imagePreview" style="width: 5rem; height: 5rem; display:none; margin-bottom:0.5rem" />
@@ -57,7 +57,7 @@
                         <option disabled selected>Chọn danh mục</option>
                         @foreach (var item in Model.DiscountViewModel)
                         {
-                            <option value="@item.DiscountPercent"> @item.DiscountPercent</option>
+                            <option value="@item.DiscountPercent">Giảm @item.DiscountPercent %</option>
                         }
                     </select>
                 </div>

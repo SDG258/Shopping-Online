@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ShoppingOnline.Models.Product>
+
+@{
+    ViewData["Title"] = "Thêm sản phẩm";
+    Layout = "~/Views/Shared/AdminHeader-Footer.cshtml";
+}
+
+<div class="right">
+    <div class="right__content">
+        <div class="right__title">Bảng điều khiển</div>
+        <p class="right__desc">Nhập kho</p>
+        <div class="right__formWrapper">
+            <form action="" method="post">
+                <div class="right__inputWrapper">
+                    <a href="~/Admin/AddProduct"><strong style="color:red">Nếu chưa có sản phẩm cần nhập trên danh sách vui lòng nhấn vào đây để thêm sản phẩm tại đây</strong></a>
+                    <label for="price">Chọn sản phẩm cần nhập</label>
+                    <select name="ProductId">
+                        <option disabled selected>Chọn sản phẩm</option>
+                        @foreach (var item in Model)
+                        {
+                            <option value="@item.ProductId">@item.NameProduct</option>
+                        }
+                    </select>
+                </div>
+                <div class="right__inputWrapper">
+                    <label for="price">Giá nhập</label>
+                    <input type="text" placeholder="Giá nhập sản phẩm" name="Cost">
+                </div>
+                <div class="right__inputWrapper">
+                    <label for="limit">Số lượng nhập</label>
+                    <input type="number" placeholder="VD: 100" name="QuantityImported">
+                </div>
+                <div class="right__inputWrapper">
+                    <label for="code">Ngày nhập</label>
+                    <input type="datetime-local" name="Date">
+                </div>
+
+                <button class="btn" type="submit">Chèn</button>
+            </form>
+        </div>
+    </div>
+</div>
