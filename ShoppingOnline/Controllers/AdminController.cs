@@ -82,12 +82,6 @@ namespace ShoppingOnline.Controllers
             }
             return Redirect("~/Admin/ListManufacturers");
         }
-        ////Hiển thi danh sách sản phẩm
-        //public async Task<IActionResult> ListProduct()
-        //{
-        //    var shoppingContext = _context.Products.OrderBy(m => m.ManufacturerId);
-        //    return View(await shoppingContext.ToListAsync());
-        //}
 
         //Hiển thị form thêm sản phẩm
         public async Task<IActionResult> AddProduct()
@@ -224,6 +218,18 @@ namespace ShoppingOnline.Controllers
             var shoppingContext = _context.WareHouses.OrderBy(m => m.ProductId).Include(p => p.Product);
             return View(await shoppingContext.ToListAsync());
         }
-
+        //Chỉnh sửa trạng thái còn hay hết hàng
+        [HttpGet("{id}")]
+        public async Task<IActionResult> EditStatus(int id,int Status)
+        {
+            var product = await _context.Products.FindAsync(id);
+            if (product != null)
+            {
+                product.Status = Status;
+                _context.Products.Update(product);
+                await _context.SaveChangesAsync();
+            }
+             return RedirectToAction(nameof(ListProduct));
+        }
     }
 }

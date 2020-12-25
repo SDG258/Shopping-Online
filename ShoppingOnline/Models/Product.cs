@@ -20,6 +20,7 @@ namespace ShoppingOnline.Models
         public int RomId { get; set; }
         public int RamId { get; set; }
         public string Note { get; set; }
+        public int? Status { get; set; }
         public int ManufacturerId { get; set; }
 
         public virtual Discount Discount { get; set; }
